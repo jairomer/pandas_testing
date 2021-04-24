@@ -28,7 +28,7 @@ class MyApp(ShowBase):
     def __init__(self):
         ShowBase.__init__(self)
         #self.setupModelCache()
-        loadPrcFile("config/Config.prc")
+        #loadPrcFile("config/Config.prc")
         # Load the environment model.
         self.scene = self.loader.loadModel("models/environment")
         # Reparent the model to render.
@@ -43,34 +43,34 @@ class MyApp(ShowBase):
         self.taskMgr.add(self.spinCameraTask, "SpinCameraTask")
 
         # Load and transform the panda actor
-        self.playerModel = self.loader.loadModel("/home/neusynk/Workspace/experiments/pandas_testing/models/HidrogenCapsule.gltf")
-        self.playerModel.setScale(0.005, 0.005, 0.005)
-        self.playerModel.reparentTo(self.render)
-        #self.pandaActor = Actor("models/panda-model", {"walk": "models/panda-walk4"})
-        #self.pandaActor.setScale(0.005, 0.005, 0.005)
-        #self.pandaActor.reparentTo(self.render)
-        ## Loop its animation
-        #self.pandaActor.loop("walk")
+       # self.playerModel = self.loader.loadModel("/home/neusynk/Workspace/experiments/pandas_testing/models/HidrogenCapsule.gltf")
+       # self.playerModel.setScale(0.005, 0.005, 0.005)
+       # self.playerModel.reparentTo(self.render)
+        self.pandaActor = Actor("models/panda-model", {"walk": "models/panda-walk4"})
+        self.pandaActor.setScale(0.005, 0.005, 0.005)
+        self.pandaActor.reparentTo(self.render)
+        # Loop its animation
+        self.pandaActor.loop("walk")
 
-        ## Create the four lerp intervals needed for the panda to walk back and forth.
-        #posInterval1 = self.pandaActor.posInterval(13,
-        #                                           Point3(0,-10,0),
-        #                                           startPos=Point3(0, 10, 0))
-        #posInterval2 = self.pandaActor.posInterval(13,
-        #                                           Point3(0, 10,0),
-        #                                           startPos=Point3(0, -10, 0))
+        # Create the four lerp intervals needed for the panda to walk back and forth.
+        posInterval1 = self.pandaActor.posInterval(13,
+                                                   Point3(0,-10,0),
+                                                   startPos=Point3(0, 10, 0))
+        posInterval2 = self.pandaActor.posInterval(13,
+                                                   Point3(0, 10,0),
+                                                   startPos=Point3(0, -10, 0))
 
-        #hprInterval1 = self.pandaActor.hprInterval(3,
-        #                                           Point3(180,0,0),
-        #                                           startHpr=Point3(0, 0, 0))
-        #hprInterval2 = self.pandaActor.hprInterval(3,
-        #                                           Point3(0,0,0),
-        #                                           startHpr=Point3(180, 0, 0))
+        hprInterval1 = self.pandaActor.hprInterval(3,
+                                                   Point3(180,0,0),
+                                                   startHpr=Point3(0, 0, 0))
+        hprInterval2 = self.pandaActor.hprInterval(3,
+                                                   Point3(0,0,0),
+                                                   startHpr=Point3(180, 0, 0))
 
-        #self.pandaPace = Sequence(posInterval1, hprInterval1,
-        #                          posInterval2, hprInterval2,
-        #                          name="pandaPace")
-        #self.pandaPace.loop()
+        self.pandaPace = Sequence(posInterval1, hprInterval1,
+                                  posInterval2, hprInterval2,
+                                  name="pandaPace")
+        self.pandaPace.loop()
 
     # Define a procedure to move the camera.
     # We will compute the desired position of the camera based on how
